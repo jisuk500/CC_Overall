@@ -2,7 +2,7 @@ local md5 = dofile("CommonLib/MD5.lua")
 local strhex = dofile("CommonLib/strHex.lua")
 local AES = dofile("CommonLib/AES.lua")
 
-
+--testing encryption and decryption
 local st = "1107dd"
 print("original pass",st)
 
