@@ -83,7 +83,7 @@ function UIElement:clickEvent(rel_x,rel_y,mouse_action)
 end
 
 --triggering mouse wheel event with absolute positions
-function UIElement:wheel(mouse_x.mouse_y,mouse_wheel)
+function UIElement:wheel(mouse_x,mouse_y,mouse_wheel)
   self:wheelEvent(mouse_x-self.x+1,mouse_y-self.y+1,mouse_wheel)
 end
 
