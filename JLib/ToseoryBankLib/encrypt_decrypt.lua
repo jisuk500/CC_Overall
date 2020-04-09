@@ -1,5 +1,5 @@
-strhex = dofile("CommonLib/strHex.lua")
-local AES = dofile("/CommonLib/AES.lua")
+strhex = dofile("JLib/CommonLib/strHex.lua")
+local AES = dofile("JLib/CommonLib/AES.lua")
 
 
 local st = "1107pory%qw"

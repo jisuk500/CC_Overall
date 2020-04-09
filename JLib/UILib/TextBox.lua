@@ -1,16 +1,16 @@
 --Inherit from UIElement
-local UIElement = dofile("UILib/UIElement.lua")
+local UIElement = dofile("JLib/UILib/UIElement.lua")
 --get TextBox libs
-local VisualLine = dofile("UILib/TextBoxLib/LinesClass.lua")
+local VisualLine = dofile("JLib/UILib/TextBoxLib/LinesClass.lua")
 
 --make TextBox class Definition
 local TextBox = {}
 TextBox.__index = TextBox
 
 local mt = {
-  __call = function(cls,x_,y_,w_,h_,T)
+  __call = function(cls,x_,y_,w_,h_,term_,T)
     local inst = setmetatable({},cls)
-    inst:_init(x_,y_,w_,h_,T)
+    inst:_init(x_,y_,w_,h_,,term_,T)
     return inst
   end
 }
@@ -18,8 +18,8 @@ local mt = {
 setmetatable(TextBox,mt)
 
 --TextBox initialization Method
-function TextBox:_init(x_,y_,w_,h_,T)
-  mt.__index = UIElement(x_,y_,w_,h_)
+function TextBox:_init(x_,y_,w_,h_,term_,T)
+  mt.__index = UIElement(x_,y_,w_,h_,term_)
 
   self.text = T or ""
   self.bg = "red"
@@ -105,7 +105,7 @@ function TextBox:_getHoriSpace(visualLine_,maxWidth_,horiMode_)
 end
 
 --Textbox render function
-function TextBox:render(x_,y_)
+function TextBox:renderContent()
   print("rendering textbox")
 end
 
