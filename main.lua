@@ -1,26 +1,19 @@
-local md5 = dofile("CommonLib/MD5.lua")
-local strhex = dofile("CommonLib/strHex.lua")
-local AES = dofile("CommonLib/AES.lua")
+local SB = dofile("JLib/UILib/SimpleButton.lua")
+local UI = dofile("JLib/UILib/UIElement.lua")
 
---testing encryption and decryption
-local st = "1107dd"
-print("original pass",st)
 
-local key_str = md5.sum(st)
-local key_hex,key = strhex:str2hex(key_str)
-print("md5 hashed pass to keys",key_str,key_hex,key)
+local sb1 = SB(1,2,3,4)
+local sb2 = SB(5,6,7,8)
 
-local plaintext = 'this is AES snc'
-print("original msg",plaintext)
+for k,v in pairs(sb1) do
+  print(k,v)
+end
 
-local cyphertext = AES.ECB_256(AES.encrypt, key, plaintext)
-print("AES256 encrypted",cyphertext)
+for k,v in pairs(sb2) do
+  print(k,v)
+end
 
-local cypherHex = strhex:str2hex(cyphertext)
-print("to Hex String",cypherHex)
 
-local cyphertextOrig = strhex:hex2str(cypherHex)
-print("to original cyphertext",cyphertextOrig)
+sb1:addChild(sb2)
 
-local newtext = AES.ECB_256(AES.decrypt, key, cyphertextOrig)
-print("decrypted original msg",newtext)
+sb1:render()

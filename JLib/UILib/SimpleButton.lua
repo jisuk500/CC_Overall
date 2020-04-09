@@ -1,12 +1,13 @@
 --inherit from UIElement
-local UIElement = dofile("UILib/UIElement.lua")
+local UIElement = dofile("JLib/UILib/UIElement.lua")
+local TableCopy = dofile("JLib/CommonLib/TableCopy.lua")
 
 --make SimpleButton Class
 local SimpleButton = {}
 SimpleButton.__index = SimpleButton
 
 local mt = {
-  __call = function(cls,x_,y_,w_,h_)
+  __call = function(cls,x_,y_,w_,h_,term_)
     local inst = setmetatable({},cls)
     inst:_init(x_,y_,w_,h_)
     return inst
@@ -15,19 +16,31 @@ local mt = {
 setmetatable(SimpleButton,mt)
 
 --SimpleButton Initialize method
-function SimpleButton:_init(x_,y_,w_,h_)
-  mt.__index = UIElement(x_,y_,w_,h_)
+function SimpleButton:_init(x_,y_,w_,h_,term_)
+  local base = UIElement(x_,y_,w_,h_,term_)
+  mt.__index = getmetatable(base)
+  TableCopy:TableCopy(base,self)
 
   self.text = T or ""
   self.bg = "red"
   self.fg = "blue"
-  self.isToggle = false
+  self.isMouseOver = false
+  self.bg_over = self.bg
+  self.fg_over = self.fg
+  self.isTogglable = false
   self.Toggled = false
+  self.bg_toggle = "yellow"
+  self.fg_toggle = "black"
+  
 end
 
 --simpletextbox rendering function
-function SimpleButton:render(x_,y_)
+function SimpleButton:renderContent()
   print("rendering simpletextbox")
+end
+
+function SimpleButton:mouseOverEvent(rel_x,rel_y,mouse_action)
+
 end
 
 --simpletextbox click event function
