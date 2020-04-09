@@ -1,19 +1,35 @@
 local SB = dofile("JLib/UILib/SimpleButton.lua")
 local UI = dofile("JLib/UILib/UIElement.lua")
 
+local m = peripheral.wrap("left")
 
-local sb1 = SB(1,2,3,4)
-local sb2 = SB(5,6,7,8)
+local sb1 = SB(5,8,15,4,m)
+sb1.text = {"123123","  hey mvikdk"," good jisuk"}
+sb1.bg = colors.blue
 
-for k,v in pairs(sb1) do
-  print(k,v)
+print(m)
+print(sb1.term)
+
+function clc()
+    term.setBackgroundColor(colors.black)
+    term.clear()
+    term.setCursorPos(1,1)
 end
 
-for k,v in pairs(sb2) do
-  print(k,v)
+local UIs = {}
+UIs[1] = sb1
+
+while true do 
+    --clc()
+    sb1:render()
+    local a,b,c,d,e = os.pullEvent()
+    print(a,b,c,d,e)
+    if a == "mouse_click" then
+        for i,v in ipairs(UIs) do
+            local re = v:checkMouseOver(c,d)
+            if re == true then
+                v:click(1,1)
+            end
+        end
+    end
 end
-
-
-sb1:addChild(sb2)
-
-sb1:render()

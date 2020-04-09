@@ -6,7 +6,7 @@ UIElement.__index = UIElement
 local mt = {
   __call = function(cls,x_,y_,w_,h_,term_)
     local inst = setmetatable({},cls)
-    inst:_init(x_,y_,w_,h_)
+    inst:_init(x_,y_,w_,h_,term_)
     return inst
   end
 }
@@ -27,7 +27,7 @@ function UIElement:_init(x_,y_,w_,h_,term_)
   self.children = {}
   self.parent = nil
 
-  self.term = term_ --or term.current()
+  self.term = term_  or term.current()
 end
 
 --add child UIElement to this UIElement
@@ -57,24 +57,27 @@ function UIElement:removeParent()
 end
 
 --Check whether the mouse point is over it
-function UIElement:isMouseOver(mouse_x,mouse_y)
+function UIElement:checkMouseOver(mouse_x,mouse_y)
 
   local max_x = self.x + self.w - 1
   local max_y = self.y + self.h - 1
-
+  
+  local asdf = false
+  
   if (self.x<=mouse_x) and (mouse_x<=max_x) then
     if (self.y<=mouse_y) and (mouse_y<=max_y) then
       self:mouseOverEvent(mouse_x-self.x+1,mouse_y-self.y+1,mouse_action)
-      return true
+	  return true
     end
   end
-
+  
   return false
+  
 end
 
 --MouserOverEvent mustOverride
 function UIElement:mouseOverEvent(rel_x,rel_y,mouse_action)
-  return nil
+
 end
 
 --triggering click event with absolute positions
@@ -86,7 +89,7 @@ end
 --Basic ClickEvent function with relative position parameters
 --must override
 function UIElement:clickEvent(rel_x,rel_y,mouse_action)
-  return nil
+  return -1
 end
 
 --triggering mouse wheel event with absolute positions
@@ -97,7 +100,7 @@ end
 --Basic mouseWheel event function with relative position parameters
 -- must override
 function UIElement:wheelEvent(rel_x,rel_y,mouse_wheel)
-  return nil
+  return -1
 end 
 
 --Basic render function with relative position parameters
